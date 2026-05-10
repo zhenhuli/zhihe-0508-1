@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "$2a$10$EixZaYb7w3JQc5nQJv5Ouu0UQnZLJn8JZJfX4X6Z0XJ2Z5J6Z4X6Z",
+    "name": "系统管理员",
+    "role": "admin",
+    "email": "admin@example.com",
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "username": "employee",
+    "password": "$2a$10$EixZaYb7w3JQc5nQJv5Ouu0UQnZLJn8JZJfX4X6Z0XJ2Z5J6Z4X6Z",
+    "name": "普通员工",
+    "role": "employee",
+    "email": "employee@example.com",
+    "status": "active",
+    "createdAt": "2024-01-02T00:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "username": "huhu",
+    "password": "123456",
+    "name": "huhu",
+    "email": "huuh@qq.com",
+    "role": "employee",
+    "status": "active",
+    "createdAt": "2026-05-10T10:34:25.560Z"
+  }
+]

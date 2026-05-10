@@ -1,0 +1,16 @@
+{
+  "name": "admin-template",
+  "version": "1.0.0",
+  "description": "可复用的中后台管理模板",
+  "scripts": {
+    "install-all": "npm run install-server && npm run install-client",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm start",
+    "client": "cd client && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

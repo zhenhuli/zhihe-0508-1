@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "orderNo": "ORD202405100001",
+    "userId": 1,
+    "username": "admin",
+    "products": [
+      { "productId": 1, "name": "iPhone 15 Pro", "quantity": 1, "price": 8999 }
+    ],
+    "totalAmount": 8999,
+    "status": "completed",
+    "paymentMethod": "alipay",
+    "shippingAddress": "北京市朝阳区",
+    "createdAt": "2024-05-10T09:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "orderNo": "ORD202405100002",
+    "userId": 2,
+    "username": "employee",
+    "products": [
+      { "productId": 2, "name": "MacBook Pro 14寸", "quantity": 1, "price": 14999 },
+      { "productId": 3, "name": "AirPods Pro 2", "quantity": 1, "price": 1899 }
+    ],
+    "totalAmount": 16898,
+    "status": "shipping",
+    "paymentMethod": "wechat",
+    "shippingAddress": "上海市浦东新区",
+    "createdAt": "2024-05-10T10:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "orderNo": "ORD202405100003",
+    "userId": 1,
+    "username": "admin",
+    "products": [
+      { "productId": 4, "name": "Apple Watch Series 9", "quantity": 2, "price": 3299 }
+    ],
+    "totalAmount": 6598,
+    "status": "pending",
+    "paymentMethod": "alipay",
+    "shippingAddress": "广州市天河区",
+    "createdAt": "2024-05-10T11:00:00.000Z"
+  }
+]

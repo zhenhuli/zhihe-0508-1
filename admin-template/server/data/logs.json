@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "username": "admin",
+    "action": "用户登录",
+    "target": "系统",
+    "time": "2024-05-10T00:00:00.000Z",
+    "ip": "127.0.0.1"
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "username": "admin",
+    "action": "用户登录",
+    "target": "系统",
+    "time": "2026-05-10T10:30:38.946Z",
+    "ip": "::1"
+  },
+  {
+    "id": 3,
+    "userId": 1,
+    "username": "admin",
+    "action": "用户登录",
+    "target": "系统",
+    "time": "2026-05-10T10:31:28.972Z",
+    "ip": "::1"
+  },
+  {
+    "id": 4,
+    "userId": 1,
+    "username": "admin",
+    "action": "创建用户",
+    "target": "huhu",
+    "time": "2026-05-10T10:34:25.561Z",
+    "ip": "::1"
+  },
+  {
+    "id": 5,
+    "userId": 1,
+    "username": "admin",
+    "action": "更新商品",
+    "target": "AirPods Pro 2",
+    "time": "2026-05-10T10:34:44.053Z",
+    "ip": "::1"
+  },
+  {
+    "id": 6,
+    "userId": 2,
+    "username": "employee",
+    "action": "用户登录",
+    "target": "系统",
+    "time": "2026-05-10T10:35:29.335Z",
+    "ip": "::1"
+  }
+]
