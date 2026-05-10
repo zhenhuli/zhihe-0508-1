@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1778399839221",
+    "name": "ooo",
+    "steps": 6,
+    "time": 30,
+    "difficulty": "easy",
+    "imageId": "forest",
+    "imageName": "森林小径",
+    "createdAt": "2026-05-10T07:57:19.221Z"
+  },
+  {
+    "id": "1778397950760",
+    "name": "TestUser",
+    "steps": 10,
+    "time": 30,
+    "difficulty": "easy",
+    "imageId": "mountain",
+    "imageName": "山间日出",
+    "createdAt": "2026-05-10T07:25:50.760Z"
+  }
+]
