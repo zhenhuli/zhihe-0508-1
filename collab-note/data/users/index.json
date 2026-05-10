@@ -1,0 +1,11 @@
+{
+  "362afe9e-0c92-4089-bf25-22e5d14778b5": {
+    "id": "362afe9e-0c92-4089-bf25-22e5d14778b5",
+    "username": "testuser",
+    "passwordHash": "1282a7b40a016d76ff5f3d8739466aed6e33817a2021f8401426e2e6e3b4a32d",
+    "displayName": "测试用户",
+    "color": "#ec4899",
+    "createdAt": 1778379697118,
+    "updatedAt": 1778379697118
+  }
+}
