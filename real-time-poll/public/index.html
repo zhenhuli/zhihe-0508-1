@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时在线投票</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .create-poll {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .create-poll h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .option-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .option-item input {
+            flex: 1;
+        }
+
+        .remove-btn {
+            padding: 8px 16px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #ee5a5a;
+        }
+
+        .add-btn {
+            padding: 10px 20px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            transition: background 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #38a169;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .polls-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .poll-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .poll-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .poll-title {
+            color: #333;
+            font-size: 1.4rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .poll-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #ee5a5a;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .my-poll-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .poll-option {
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .option-text {
+            color: #444;
+            font-weight: 500;
+        }
+
+        .option-votes {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .vote-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .vote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-label {
+            min-width: 120px;
+            max-width: 120px;
+            font-size: 0.9rem;
+            color: #555;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bar-wrapper {
+            flex: 1;
+            height: 28px;
+            background: #f0f0f0;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 14px;
+            transition: width 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .bar-percentage {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .total-votes {
+            text-align: center;
+            margin-top: 16px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            opacity: 0.9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            padding: 0 8px;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-body canvas {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗳️ 实时在线投票</h1>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('create')">创建投票</button>
+            <button class="tab-btn" onclick="switchTab('all')">全部投票</button>
+            <button class="tab-btn" onclick="switchTab('my')">我的投票</button>
+        </div>
+
+        <div id="create-tab" class="tab-content active">
+            <div class="create-poll">
+                <h2>创建新投票</h2>
+                <form id="createPollForm">
+                    <div class="form-group">
+                        <label for="pollTitle">投票主题</label>
+                        <input type="text" id="pollTitle" placeholder="请输入投票主题..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>投票选项</label>
+                        <div id="optionsContainer">
+                            <div class="option-item">
+                                <input type="text" class="option-input" placeholder="选项 1" required>
+                                <button type="button" class="remove-btn" onclick="removeOption(this)">删除</button>
+                            </div>
+                            <div class="option-item">
+                                <input type="text" class="option-input" placeholder="选项 2" required>
+                                <button type="button" class="remove-btn" onclick="removeOption(this)">删除</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" onclick="addOption()">+ 添加选项</button>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">创建投票</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="all-tab" class="tab-content">
+            <div id="allPollsContainer" class="polls-container">
+                <div class="empty-state">
+                    <h3>暂无投票</h3>
+                    <p>创建第一个投票开始吧！</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="my-tab" class="tab-content">
+            <div id="myPollsContainer" class="polls-container">
+                <div class="empty-state">
+                    <h3>暂无我的投票</h3>
+                    <p>创建一个投票吧！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exportModalTitle">投票结果</h3>
+                <button class="modal-close" onclick="closeExportModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <canvas id="exportCanvas"></canvas>
+                <button class="download-btn" onclick="downloadImage()">下载图片</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let polls = {};
+        let myPollIds = JSON.parse(localStorage.getItem('myPollIds') || '[]');
+        let currentExportPoll = null;
+        
+        const colors = [
+            { start: '#667eea', end: '#764ba2', css: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)' },
+            { start: '#f093fb', end: '#f5576c', css: 'linear-gradient(90deg, #f093fb 0%, #f5576c 100%)' },
+            { start: '#4facfe', end: '#00f2fe', css: 'linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)' },
+            { start: '#43e97b', end: '#38f9d7', css: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)' },
+            { start: '#fa709a', end: '#fee140', css: 'linear-gradient(90deg, #fa709a 0%, #fee140 100%)' },
+            { start: '#a8edea', end: '#fed6e3', css: 'linear-gradient(90deg, #a8edea 0%, #fed6e3 100%)' }
+        ];
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            if (tabName === 'my') {
+                renderMyPolls();
+            } else if (tabName === 'all') {
+                renderAllPolls();
+            }
+        }
+
+        function addOption() {
+            const container = document.getElementById('optionsContainer');
+            const optionCount = container.children.length + 1;
+            const newOption = document.createElement('div');
+            newOption.className = 'option-item';
+            newOption.innerHTML = `
+                <input type="text" class="option-input" placeholder="选项 ${optionCount}" required>
+                <button type="button" class="remove-btn" onclick="removeOption(this)">删除</button>
+            `;
+            container.appendChild(newOption);
+        }
+
+        function removeOption(btn) {
+            const container = document.getElementById('optionsContainer');
+            if (container.children.length > 2) {
+                btn.parentElement.remove();
+                updateOptionPlaceholders();
+            } else {
+                alert('至少需要2个选项！');
+            }
+        }
+
+        function updateOptionPlaceholders() {
+            const container = document.getElementById('optionsContainer');
+            Array.from(container.children).forEach((child, index) => {
+                const input = child.querySelector('input');
+                input.placeholder = `选项 ${index + 1}`;
+            });
+        }
+
+        document.getElementById('createPollForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.getElementById('pollTitle').value.trim();
+            const optionInputs = document.querySelectorAll('.option-input');
+            const options = Array.from(optionInputs)
+                .map(input => input.value.trim())
+                .filter(opt => opt);
+
+            if (title && options.length >= 2) {
+                const pollId = Date.now().toString();
+                myPollIds.push(pollId);
+                localStorage.setItem('myPollIds', JSON.stringify(myPollIds));
+                
+                socket.emit('create poll', { id: pollId, title, options });
+                document.getElementById('createPollForm').reset();
+                document.getElementById('optionsContainer').innerHTML = `
+                    <div class="option-item">
+                        <input type="text" class="option-input" placeholder="选项 1" required>
+                        <button type="button" class="remove-btn" onclick="removeOption(this)">删除</button>
+                    </div>
+                    <div class="option-item">
+                        <input type="text" class="option-input" placeholder="选项 2" required>
+                        <button type="button" class="remove-btn" onclick="removeOption(this)">删除</button>
+                    </div>
+                `;
+                
+                switchTab('my');
+            }
+        });
+
+        socket.on('initial polls', (initialPolls) => {
+            polls = initialPolls;
+            renderAllPolls();
+        });
+
+        socket.on('new poll', (poll) => {
+            polls[poll.id] = poll;
+            if (document.getElementById('all-tab').classList.contains('active')) {
+                renderAllPolls();
+            }
+            if (myPollIds.includes(poll.id) && document.getElementById('my-tab').classList.contains('active')) {
+                renderMyPolls();
+            }
+        });
+
+        socket.on('update poll', ({ pollId, options }) => {
+            if (polls[pollId]) {
+                polls[pollId].options = options;
+                if (document.getElementById('all-tab').classList.contains('active')) {
+                    updatePollDisplay(pollId, 'all');
+                }
+                if (myPollIds.includes(pollId) && document.getElementById('my-tab').classList.contains('active')) {
+                    updatePollDisplay(pollId, 'my');
+                }
+            }
+        });
+
+        socket.on('poll deleted', ({ pollId }) => {
+            if (polls[pollId]) {
+                delete polls[pollId];
+                if (document.getElementById('all-tab').classList.contains('active')) {
+                    renderAllPolls();
+                }
+                if (myPollIds.includes(pollId)) {
+                    myPollIds = myPollIds.filter(id => id !== pollId);
+                    localStorage.setItem('myPollIds', JSON.stringify(myPollIds));
+                    if (document.getElementById('my-tab').classList.contains('active')) {
+                        renderMyPolls();
+                    }
+                }
+            }
+        });
+
+        function vote(pollId, optionIndex) {
+            socket.emit('vote', { pollId, optionIndex });
+        }
+
+        function deletePoll(pollId) {
+            if (confirm('确定要删除这个投票吗？此操作无法撤销。')) {
+                socket.emit('delete poll', { pollId });
+            }
+        }
+
+        function calculateTotalVotes(options) {
+            return options.reduce((sum, opt) => sum + opt.votes, 0);
+        }
+
+        function calculatePercentage(votes, total) {
+            if (total === 0) return 0;
+            return Math.round((votes / total) * 100);
+        }
+
+        function createPollCard(poll, isMyPoll = false) {
+            const totalVotes = calculateTotalVotes(poll.options);
+            let html = `
+                <div class="poll-card" id="poll-${poll.id}">
+                    <div class="poll-header">
+                        <div>
+                            <span class="poll-title">${poll.title}</span>
+                            ${isMyPoll ? '<span class="my-poll-badge">我的</span>' : ''}
+                        </div>
+                        <div class="poll-actions">
+            `;
+            
+            if (isMyPoll) {
+                html += `
+                            <button class="action-btn export-btn" onclick="exportPoll('${poll.id}')">📊 导出图片</button>
+                            <button class="action-btn delete-btn" onclick="deletePoll('${poll.id}')">🗑️ 删除</button>
+                `;
+            }
+            
+            html += `
+                        </div>
+                    </div>
+                    <div class="poll-options">
+            `;
+            
+            poll.options.forEach((option, index) => {
+                html += `
+                    <div class="poll-option">
+                        <div class="option-label">
+                            <span class="option-text">${option.text}</span>
+                            <span class="option-votes">${option.votes} 票</span>
+                        </div>
+                        <button class="vote-btn" onclick="vote('${poll.id}', ${index})">投票</button>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                    <div class="chart-container">
+                        <div class="bar-chart" id="chart-${poll.id}">
+            `;
+
+            poll.options.forEach((option, index) => {
+                const percentage = calculatePercentage(option.votes, totalVotes);
+                html += `
+                    <div class="bar-item">
+                        <div class="bar-label">${option.text}</div>
+                        <div class="bar-wrapper">
+                            <div class="bar-fill" style="width: ${percentage}%; background: ${colors[index % colors.length].css}">
+                                <span class="bar-percentage">${percentage}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                        <div class="total-votes">总票数: <strong>${totalVotes}</strong></div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        function renderAllPolls() {
+            const container = document.getElementById('allPollsContainer');
+            const pollList = Object.values(polls).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            if (pollList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>暂无投票</h3>
+                        <p>创建第一个投票开始吧！</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = pollList.map(poll => createPollCard(poll, myPollIds.includes(poll.id))).join('');
+            }
+        }
+
+        function renderMyPolls() {
+            const container = document.getElementById('myPollsContainer');
+            const myPollList = Object.values(polls)
+                .filter(poll => myPollIds.includes(poll.id))
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            if (myPollList.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>暂无我的投票</h3>
+                        <p>创建一个投票吧！</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = myPollList.map(poll => createPollCard(poll, true)).join('');
+            }
+        }
+
+        function updatePollDisplay(pollId, tab) {
+            const poll = polls[pollId];
+            const totalVotes = calculateTotalVotes(poll.options);
+            const prefix = tab === 'my' ? 'my-' : '';
+            const cardId = prefix ? `my-poll-${pollId}` : `poll-${pollId}`;
+            const chartId = prefix ? `my-chart-${pollId}` : `chart-${pollId}`;
+            
+            const card = document.getElementById(`poll-${pollId}`);
+            if (!card) return;
+            
+            const optionVotes = card.querySelectorAll('.option-votes');
+            poll.options.forEach((option, index) => {
+                if (optionVotes[index]) {
+                    optionVotes[index].textContent = `${option.votes} 票`;
+                }
+            });
+
+            const chart = document.getElementById(`chart-${pollId}`);
+            const barFills = chart.querySelectorAll('.bar-fill');
+            const percentages = chart.querySelectorAll('.bar-percentage');
+            const totalVotesEl = card.querySelector('.total-votes strong');
+            
+            poll.options.forEach((option, index) => {
+                const percentage = calculatePercentage(option.votes, totalVotes);
+                if (barFills[index]) {
+                    barFills[index].style.width = `${percentage}%`;
+                }
+                if (percentages[index]) {
+                    percentages[index].textContent = `${percentage}%`;
+                }
+            });
+            
+            if (totalVotesEl) {
+                totalVotesEl.textContent = totalVotes;
+            }
+        }
+
+        function exportPoll(pollId) {
+            currentExportPoll = polls[pollId];
+            document.getElementById('exportModalTitle').textContent = currentExportPoll.title;
+            document.getElementById('exportModal').classList.add('active');
+            drawChart(currentExportPoll);
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('active');
+            currentExportPoll = null;
+        }
+
+        function drawChart(poll) {
+            const canvas = document.getElementById('exportCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            const scale = 2;
+            
+            const baseWidth = 1200;
+            const padding = 100;
+            const barHeight = 60;
+            const barGap = 30;
+            const chartStartY = 240;
+            const footerHeight = 120;
+            
+            const totalVotes = calculateTotalVotes(poll.options);
+            const contentHeight = (barHeight + barGap) * poll.options.length - barGap;
+            const baseHeight = chartStartY + contentHeight + footerHeight + 60;
+            
+            canvas.width = baseWidth;
+            canvas.height = baseHeight;
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            canvas.style.maxWidth = baseWidth + 'px';
+            
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            
+            const bgGradient = ctx.createLinearGradient(0, 0, baseWidth, baseHeight);
+            bgGradient.addColorStop(0, '#667eea');
+            bgGradient.addColorStop(1, '#764ba2');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, baseWidth, baseHeight);
+            
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetY = 10;
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.97)';
+            roundRect(ctx, 50, 50, baseWidth - 100, baseHeight - 100, 30);
+            ctx.fill();
+            
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetY = 0;
+            
+            ctx.fillStyle = '#1a1a1a';
+            ctx.font = 'bold 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(poll.title, baseWidth / 2, 130);
+            
+            ctx.fillStyle = '#666';
+            ctx.font = '22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.fillText(`总票数: ${totalVotes}`, baseWidth / 2, 190);
+            
+            const labelMaxWidth = 200;
+            const barStartX = padding + labelMaxWidth + 30;
+            const barEndX = baseWidth - padding - 220;
+            const barTotalWidth = barEndX - barStartX;
+            
+            poll.options.forEach((option, index) => {
+                const y = chartStartY + (barHeight + barGap) * index;
+                const barCenterY = y + barHeight / 2;
+                const percentage = calculatePercentage(option.votes, totalVotes);
+                const barWidth = barTotalWidth * (percentage / 100);
+                
+                ctx.fillStyle = '#444';
+                ctx.font = '500 24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                
+                const displayText = option.text.length > 16 ? option.text.substring(0, 16) + '...' : option.text;
+                ctx.fillText(displayText, padding, barCenterY);
+                
+                ctx.fillStyle = '#f0f0f0';
+                roundRect(ctx, barStartX, y, barTotalWidth, barHeight, 30);
+                ctx.fill();
+                
+                if (barWidth > 20) {
+                    const barGradient = ctx.createLinearGradient(barStartX, y, barStartX + barWidth, y);
+                    const color = colors[index % colors.length];
+                    barGradient.addColorStop(0, color.start);
+                    barGradient.addColorStop(1, color.end);
+                    ctx.fillStyle = barGradient;
+                    roundRect(ctx, barStartX, y, barWidth, barHeight, 30);
+                    ctx.fill();
+                    
+                    if (barWidth > 100) {
+                        ctx.fillStyle = '#fff';
+                        ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(`${percentage}%`, barStartX + barWidth / 2, barCenterY);
+                    }
+                }
+                
+                ctx.fillStyle = '#333';
+                ctx.font = '600 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(`${option.votes} 票 (${percentage}%)`, baseWidth - padding, barCenterY);
+            });
+            
+            const chartEndY = chartStartY + contentHeight;
+            
+            ctx.fillStyle = '#888';
+            ctx.font = '16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('实时在线投票系统', baseWidth / 2, chartEndY + 60);
+            ctx.fillText(new Date().toLocaleString('zh-CN'), baseWidth / 2, chartEndY + 90);
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function downloadImage() {
+            const canvas = document.getElementById('exportCanvas');
+            const link = document.createElement('a');
+            link.download = `投票结果_${currentExportPoll.title}_${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        document.getElementById('exportModal').addEventListener('click', (e) => {
+            if (e.target.id === 'exportModal') {
+                closeExportModal();
+            }
+        });
+    </script>
+</body>
+</html>
