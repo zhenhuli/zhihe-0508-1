@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">GlassUI - 现代化企业解决方案</title>
+    
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <link rel="stylesheet" href="css/components/navbar.css">
+    <link rel="stylesheet" href="css/components/hero.css">
+    <link rel="stylesheet" href="css/components/features.css">
+    <link rel="stylesheet" href="css/components/about.css">
+    <link rel="stylesheet" href="css/components/footer.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <span class="brand-icon">✦</span>
+                <span class="brand-name">GlassUI</span>
+            </div>
+            
+            <ul class="navbar-menu" id="navbarMenu">
+                <li><a href="#hero" class="nav-link" data-i18n="nav.home">首页</a></li>
+                <li><a href="#features" class="nav-link" data-i18n="nav.features">功能</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav.about">关于我们</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">联系我们</a></li>
+            </ul>
+            
+            <div class="language-switcher" id="languageSwitcher">
+                <button class="lang-btn lang-btn-active" data-lang="zh">中</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            
+            <button class="navbar-toggle" id="navbarToggle">
+                <span class="toggle-icon"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <section class="hero" id="hero">
+        <div class="hero-background">
+            <div class="bg-blob blob-1"></div>
+            <div class="bg-blob blob-2"></div>
+            <div class="bg-blob blob-3"></div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1 class="hero-title">
+                    <span data-i18n="hero.title.part1">开启未来</span>
+                    <span class="highlight-text" data-i18n="hero.title.highlight">企业数字化</span>
+                    <span data-i18n="hero.title.part2">新时代</span>
+                </h1>
+                <p class="hero-description" data-i18n="hero.description">
+                    GlassUI 为您提供最先进的毛玻璃风格企业解决方案，
+                    帮助您的业务在数字时代脱颖而出，实现卓越增长。
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" data-i18n="hero.cta.primary">立即开始</button>
+                    <button class="btn btn-secondary" data-i18n="hero.cta.secondary">了解更多</button>
+                </div>
+            </div>
+            
+            <div class="hero-visual fade-in-up delay-1">
+                <div class="glass-card glass-card-large">
+                    <div class="card-header">
+                        <div class="card-dot card-dot-red"></div>
+                        <div class="card-dot card-dot-yellow"></div>
+                        <div class="card-dot card-dot-green"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-placeholder">
+                            <div class="chart-line"></div>
+                            <div class="chart-bars">
+                                <div class="bar bar-1"></div>
+                                <div class="bar bar-2"></div>
+                                <div class="bar bar-3"></div>
+                                <div class="bar bar-4"></div>
+                                <div class="bar bar-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header fade-in-up">
+                <h2 class="section-title" data-i18n="features.title">核心功能</h2>
+                <p class="section-subtitle" data-i18n="features.subtitle">强大而优雅的解决方案，助力企业腾飞</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <span>⚡</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.speed.title">极速性能</h3>
+                    <p class="feature-description" data-i18n="features.speed.description">
+                        采用最新技术栈，确保您的应用始终保持最佳性能状态，
+                        为用户提供流畅的使用体验。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in-up delay-1">
+                    <div class="feature-icon">
+                        <span>🔒</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.security.title">安全可靠</h3>
+                    <p class="feature-description" data-i18n="features.security.description">
+                        多层安全防护机制，保护您的企业数据和用户隐私，
+                        让您无后顾之忧。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in-up delay-2">
+                    <div class="feature-icon">
+                        <span>🎨</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.design.title">精美设计</h3>
+                    <p class="feature-description" data-i18n="features.design.description">
+                        毛玻璃风格美学与现代设计理念完美融合，
+                        打造令人惊艳的用户界面。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <span>📱</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.responsive.title">全端适配</h3>
+                    <p class="feature-description" data-i18n="features.responsive.description">
+                        完美支持桌面端、平板和移动设备，
+                        随时随地提供一致的用户体验。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in-up delay-1">
+                    <div class="feature-icon">
+                        <span>🔧</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.customization.title">灵活定制</h3>
+                    <p class="feature-description" data-i18n="features.customization.description">
+                        高度可定制化的组件系统，
+                        满足您企业的个性化需求。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in-up delay-2">
+                    <div class="feature-icon">
+                        <span>🤝</span>
+                    </div>
+                    <h3 class="feature-title" data-i18n="features.support.title">专业支持</h3>
+                    <p class="feature-description" data-i18n="features.support.description">
+                        24/7 全天候专业技术支持团队，
+                        随时为您解答问题和提供帮助。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-content">
+                <div class="about-text fade-in-up">
+                    <div class="section-header">
+                        <h2 class="section-title" data-i18n="about.title">关于我们</h2>
+                        <p class="section-subtitle" data-i18n="about.subtitle">创新驱动，品质为先</p>
+                    </div>
+                    
+                    <p class="about-paragraph" data-i18n="about.paragraph1">
+                        GlassUI 是一家专注于企业数字化转型的科技公司。我们相信，
+                        优秀的设计能够改变世界，而毛玻璃风格正是我们追求的美学巅峰。
+                    </p>
+                    
+                    <p class="about-paragraph" data-i18n="about.paragraph2">
+                        自成立以来，我们已经服务了超过 500 家企业客户，
+                        帮助他们构建了现代化的数字化产品和服务。我们的团队由来自全球顶级科技公司的工程师和设计师组成，
+                        致力于为客户提供最优质的解决方案。
+                    </p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label" data-i18n="about.stats.clients">企业客户</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label" data-i18n="about.stats.satisfaction">客户满意度</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label" data-i18n="about.stats.support">全天候支持</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual fade-in-up delay-1">
+                    <div class="glass-card glass-card-medium">
+                        <div class="team-placeholder">
+                            <div class="team-avatar avatar-1"></div>
+                            <div class="team-avatar avatar-2"></div>
+                            <div class="team-avatar avatar-3"></div>
+                            <div class="team-avatar avatar-4"></div>
+                        </div>
+                        <div class="team-info">
+                            <p class="team-text" data-i18n="about.team">我们的专业团队随时为您服务</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer" id="contact">
+        <div class="section-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="navbar-brand">
+                        <span class="brand-icon">✦</span>
+                        <span class="brand-name">GlassUI</span>
+                    </div>
+                    <p class="footer-description" data-i18n="footer.description">
+                        为企业提供最先进的毛玻璃风格数字化解决方案，
+                        助力您的业务在数字时代腾飞。
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading" data-i18n="footer.product">产品</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link" data-i18n="footer.product.features">功能特性</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.product.pricing">价格方案</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.product.cases">客户案例</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.product.changelog">更新日志</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-heading" data-i18n="footer.company">公司</h4>
+                        <ul class="footer-list">
+                            <li><a href="#about" class="footer-link" data-i18n="footer.company.about">关于我们</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.company.team">团队成员</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.company.careers">职业机会</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.company.news">新闻动态</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-heading" data-i18n="footer.support">支持</h4>
+                        <ul class="footer-list">
+                            <li><a href="#" class="footer-link" data-i18n="footer.support.help">帮助中心</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.support.docs">开发文档</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.support.community">社区论坛</a></li>
+                            <li><a href="#" class="footer-link" data-i18n="footer.support.contact">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">
+                    © 2026 GlassUI. All rights reserved.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">💼</a>
+                    <a href="#" class="social-link">📷</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
