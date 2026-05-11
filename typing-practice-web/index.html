@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>打字练习系统</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <h1>打字练习系统</h1>
+      <div class="controls">
+        <select id="language-select" class="select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+        </select>
+        <select id="article-select" class="select"></select>
+        <button id="start-btn" class="btn">开始练习</button>
+        <button id="reset-btn" class="btn btn-secondary">重置</button>
+        <button id="view-history-btn" class="btn btn-secondary">历史记录</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">时间</span>
+            <span id="time" class="stat-value">00:00</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">速度 (WPM)</span>
+            <span id="wpm" class="stat-value">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">准确率</span>
+            <span id="accuracy" class="stat-value">100%</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">进度</span>
+            <span id="progress" class="stat-value">0%</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="typing-section">
+        <div id="text-display" class="text-display" aria-label="练习文本"></div>
+        <textarea 
+          id="input-area" 
+          class="input-area" 
+          placeholder="点击开始练习后在此输入..."
+          spellcheck="false"
+        ></textarea>
+      </section>
+
+      <section id="result-section" class="result-section hidden">
+        <h2>练习结果</h2>
+        <div class="result-stats">
+          <div class="result-item">
+            <span class="result-label">最终速度</span>
+            <span id="final-wpm" class="result-value">0</span>
+            <span class="result-unit">WPM</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">准确率</span>
+            <span id="final-accuracy" class="result-value">0%</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">用时</span>
+            <span id="final-time" class="result-value">00:00</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">错误数</span>
+            <span id="final-errors" class="result-value">0</span>
+          </div>
+        </div>
+
+        <div id="error-review" class="error-review hidden">
+          <h3>错误复盘</h3>
+          <div id="error-list" class="error-list"></div>
+        </div>
+
+        <div class="result-actions">
+          <button id="retry-btn" class="btn">再练一次</button>
+          <button id="close-result-btn" class="btn btn-secondary">关闭</button>
+        </div>
+      </section>
+
+      <section id="history-section" class="history-section hidden">
+        <div class="history-header">
+          <h2>练习历史记录</h2>
+          <button id="clear-history-btn" class="btn btn-danger">清空历史</button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+        <div class="history-actions">
+          <button id="close-history-btn" class="btn btn-secondary">关闭</button>
+        </div>
+      </section>
+
+      <section id="leaderboard-section" class="leaderboard-section hidden">
+        <h2>排行榜</h2>
+        <div class="leaderboard-tabs">
+          <button class="tab-btn active" data-lang="zh">中文</button>
+          <button class="tab-btn" data-lang="en">English</button>
+        </div>
+        <div id="leaderboard-list" class="leaderboard-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>支持多语种练习 · 错误标红复盘 · 本地保存记录</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
