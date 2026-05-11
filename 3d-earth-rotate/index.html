@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D 地球人口数据展示</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="canvas-container"></div>
+      <div id="title">🌍 3D 地球人口数据展示</div>
+      
+      <!-- 左侧人口统计面板（可收起） -->
+      <div id="panel-toggle" class="collapsed">
+        <span id="toggle-icon">▶</span>
+        <span id="toggle-text">人口统计</span>
+      </div>
+      
+      <div id="population-panel" class="collapsed">
+        <div class="panel-header">
+          <h3>📊 世界人口统计</h3>
+          <div class="total-population">
+            全球总人口: <span id="total-population">0</span>
+          </div>
+        </div>
+        <div id="continent-list">
+          <!-- 各大洲列表将通过JS动态生成 -->
+        </div>
+      </div>
+      
+      <!-- 悬浮人口标签容器 -->
+      <div id="floating-labels"></div>
+      
+      <!-- 右侧经纬度显示 -->
+      <div id="lat-lng-tooltip">
+        <div><strong>鼠标悬停显示经纬度</strong></div>
+        <div id="coord-display">经度: 0.00° | 纬度: 0.00°</div>
+      </div>
+      
+      <!-- 大洲详情弹窗 -->
+      <div id="continent-detail" class="hidden">
+        <button id="close-detail">&times;</button>
+        <div id="detail-content"></div>
+      </div>
+      
+      <!-- 底部操作提示 -->
+      <div id="instructions">
+        鼠标拖拽旋转 | 滚轮缩放 | 悬停标记点查看人口 | 点击查看详情
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
