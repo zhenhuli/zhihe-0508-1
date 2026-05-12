@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>双人贪吃蛇 - Snake Multiplayer</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🐍 双人贪吃蛇</h1>
+      <p class="subtitle">与朋友一起在线对战</p>
+    </header>
+
+    <div id="homeScreen" class="screen active">
+      <div class="card">
+        <div class="form-group">
+          <label>你的名字</label>
+          <input type="text" id="playerName" placeholder="输入你的名字" maxlength="20">
+        </div>
+        
+        <button class="btn btn-primary" id="createRoomBtn">创建房间</button>
+        
+        <div class="divider">或</div>
+        
+        <div class="form-group">
+          <label>房间码</label>
+          <input type="text" id="roomCodeInput" placeholder="输入6位房间码" maxlength="6">
+        </div>
+        <button class="btn btn-secondary" id="joinRoomBtn">加入房间</button>
+        
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+      </div>
+      
+      <div class="leaderboard">
+        <h3>🏆 排行榜</h3>
+        <div id="leaderboardList" class="leaderboard-list">
+          <div class="no-data">暂无数据</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="roomScreen" class="screen">
+      <div class="card">
+        <button class="btn btn-secondary back-btn" id="backBtn">← 返回</button>
+        
+        <div class="room-info">
+          <p>房间码</p>
+          <div class="room-code" id="roomCodeDisplay">ABC123</div>
+          <p class="subtitle">分享给你的朋友加入游戏</p>
+        </div>
+        
+        <div class="players-list" id="playersList">
+          <div class="player-item">
+            <span>玩家1</span>
+            <span class="waiting">等待中...</span>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary" id="startGameBtn" disabled>开始游戏</button>
+      </div>
+    </div>
+
+    <div id="gameScreen" class="screen">
+      <div class="game-screen">
+        <div class="game-panel">
+          <div class="scores">
+            <div class="score-box p1">
+              <div class="score-name" id="p1Name">玩家1</div>
+              <div class="score-value" id="p1Score">0</div>
+            </div>
+            <div class="score-box p2">
+              <div class="score-name" id="p2Name">玩家2</div>
+              <div class="score-value" id="p2Score">0</div>
+            </div>
+          </div>
+          <canvas id="gameCanvas"></canvas>
+          <div class="controls">
+            <h4>操作说明</h4>
+            <p>↑ ↓ ← → 或 W A S D 控制方向</p>
+          </div>
+        </div>
+        
+        <div class="game-panel sidebar">
+          <h3 style="margin-bottom: 15px;">💬 聊天</h3>
+          <div class="chat-box" id="chatBox"></div>
+          <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="输入消息..." maxlength="100">
+            <button class="btn btn-primary" id="sendChatBtn">发送</button>
+          </div>
+          <button class="btn btn-secondary" id="exitGameBtn" style="margin-top: 20px;">退出游戏</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="gameOverModal" class="game-over-modal">
+      <div class="modal-content">
+        <h2>游戏结束!</h2>
+        <div class="final-scores" id="finalScores"></div>
+        <div class="winner" id="winnerText"></div>
+        <button class="btn btn-primary" id="playAgainBtn">再来一局</button>
+        <button class="btn btn-secondary" id="backToHomeBtn">返回首页</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
