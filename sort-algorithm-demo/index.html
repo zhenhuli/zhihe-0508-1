@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>排序算法可视化演示</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>排序算法可视化演示</h1>
+    
+    <div class="control-panel">
+      <div class="control-group">
+        <label>排序算法:</label>
+        <select id="algorithm">
+          <option value="bubble">冒泡排序</option>
+          <option value="selection">选择排序</option>
+          <option value="insertion">插入排序</option>
+          <option value="shell">希尔排序</option>
+          <option value="merge">归并排序</option>
+          <option value="quick">快速排序</option>
+          <option value="heap">堆排序</option>
+          <option value="counting">计数排序</option>
+          <option value="bucket">桶排序</option>
+          <option value="radix">基数排序</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label>数据量: <span id="dataSizeValue">30</span></label>
+        <input type="range" id="dataSize" min="5" max="100" value="30">
+      </div>
+      
+      <div class="control-group">
+        <label>速度: <span id="speedValue">50</span>ms</label>
+        <input type="range" id="speed" min="10" max="500" value="50">
+      </div>
+      
+      <div class="button-group">
+        <button id="generateBtn">生成新数据</button>
+        <button id="startBtn">开始排序</button>
+        <button id="pauseBtn">暂停</button>
+        <button id="stepBtn">下一步</button>
+        <button id="resetBtn">重置</button>
+      </div>
+    </div>
+    
+    <div class="algorithm-info">
+      <h3 id="algorithmTitle">冒泡排序</h3>
+      <p id="algorithmDesc">冒泡排序通过重复遍历待排序序列，比较相邻元素并交换位置，使较大元素逐渐"浮"到序列末端。每趟遍历后，最大元素已归位，下趟遍历长度减一。</p>
+      <div class="complexity">
+        <span><strong>时间复杂度:</strong> O(n²)</span>
+        <span><strong>空间复杂度:</strong> O(1)</span>
+        <span><strong>稳定性:</strong> 稳定</span>
+      </div>
+    </div>
+    
+    <div class="canvas-container">
+      <canvas id="sortCanvas"></canvas>
+    </div>
+    
+    <div class="info-panel">
+      <div class="info-item">
+        <span class="label">比较次数:</span>
+        <span id="compareCount">0</span>
+      </div>
+      <div class="info-item">
+        <span class="label">交换次数:</span>
+        <span id="swapCount">0</span>
+      </div>
+      <div class="info-item">
+        <span class="label">状态:</span>
+        <span id="status">就绪</span>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
