@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>白噪音放松 | Relax Music</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🌿 白噪音放松</h1>
+      <p class="subtitle">让心灵回归宁静</p>
+    </header>
+
+    <div class="timer-section">
+      <div class="timer-display" id="timerDisplay">定时关闭: 未设置</div>
+      <div class="timer-buttons">
+        <button class="timer-btn" data-time="15">15分钟</button>
+        <button class="timer-btn" data-time="30">30分钟</button>
+        <button class="timer-btn" data-time="60">60分钟</button>
+        <button class="timer-btn" data-time="0">取消</button>
+      </div>
+    </div>
+
+    <div class="sounds-grid" id="soundsGrid">
+    </div>
+
+    <div class="master-controls">
+      <div class="volume-control">
+        <label>总音量</label>
+        <input type="range" id="masterVolume" min="0" max="100" value="70">
+        <span id="masterVolumeValue">70%</span>
+      </div>
+      <button class="stop-all-btn" id="stopAllBtn">🔇 全部停止</button>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
