@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>打字机文案特效展示</title>
+    <link rel="stylesheet" href="css/style.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>打字机文案特效展示</h1>
+            <p class="subtitle">支持自定义文案、调节速度、光标样式切换</p>
+        </header>
+
+        <div class="typing-display">
+            <div class="typing-box">
+                <span id="typing-text"></span>
+                <span id="cursor" class="cursor-style-1"></span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="text-input">自定义文案（每行一段，用换行分隔）:</label>
+                <textarea id="text-input" rows="4" placeholder="输入文案...">欢迎使用打字机特效
+这是一个炫酷的展示工具
+支持多段文案自动轮播
+快来体验吧！</textarea>
+            </div>
+
+            <div class="control-row">
+                <div class="control-group">
+                    <label for="speed-range">打字速度: <span id="speed-value">100</span>ms</label>
+                    <input type="range" id="speed-range" min="20" max="300" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label for="pause-range">轮播停顿时间: <span id="pause-value">2000</span>ms</label>
+                    <input type="range" id="pause-range" min="500" max="5000" value="2000">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>光标样式:</label>
+                <div class="cursor-options">
+                    <button class="cursor-btn active" data-style="cursor-style-1">|</button>
+                    <button class="cursor-btn" data-style="cursor-style-2">_</button>
+                    <button class="cursor-btn" data-style="cursor-style-3">●</button>
+                    <button class="cursor-btn" data-style="cursor-style-4">▋</button>
+                    <button class="cursor-btn" data-style="cursor-style-none">无</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>操作:</label>
+                <div class="action-buttons">
+                    <button id="start-btn" class="btn primary">开始</button>
+                    <button id="pause-btn" class="btn">暂停</button>
+                    <button id="reset-btn" class="btn">重置</button>
+                    <button id="export-btn" class="btn">导出代码</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-section" id="code-section" style="display: none;">
+            <div class="code-header">
+                <h3>导出的代码</h3>
+                <button id="copy-btn" class="btn primary">复制代码</button>
+            </div>
+            <pre><code id="code-output"></code></pre>
+        </div>
+    </div>
+
+    <script src="js/main.min.js"></script>
+</body>
+</html>
