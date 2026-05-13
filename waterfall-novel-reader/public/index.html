@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>瀑布流小说阅读器</title>
+  <link rel="stylesheet" href="/_dist_/styles/main.css">
+</head>
+<body>
+  <div id="app">
+    <div id="bookshelf" class="bookshelf">
+      <header class="header">
+        <h1>我的书架</h1>
+      </header>
+      <div id="masonry-grid" class="masonry-grid"></div>
+    </div>
+
+    <div id="reader" class="reader hidden">
+      <header class="reader-header">
+        <button id="back-btn" class="back-btn">← 返回</button>
+        <h2 id="book-title"></h2>
+        <button id="settings-btn" class="settings-btn">⚙</button>
+      </header>
+      <div id="reader-content" class="reader-content">
+        <div id="chapter-container" class="chapter-container"></div>
+      </div>
+      <div class="page-indicator">
+        <span id="current-chapter"></span> / <span id="total-chapters"></span>
+      </div>
+      <div id="settings-panel" class="settings-panel hidden">
+        <div class="setting-item">
+          <label>字号</label>
+          <div class="font-size-controls">
+            <button id="font-decrease">A-</button>
+            <span id="font-size-display">16</span>
+            <button id="font-increase">A+</button>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label>背景色</label>
+          <div class="bg-color-options">
+            <button class="bg-option" data-color="#f5f5dc"></button>
+            <button class="bg-option" data-color="#ffffff"></button>
+            <button class="bg-option" data-color="#e6f3ff"></button>
+            <button class="bg-option" data-color="#2d2d2d"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/_dist_/js/main.js"></script>
+</body>
+</html>

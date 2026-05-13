@@ -1,0 +1,15 @@
+{
+  "name": "waterfall-novel-reader",
+  "version": "1.0.0",
+  "description": "瀑布流短篇小说阅览页",
+  "scripts": {
+    "build:css": "lessc src/styles/main.less public/_dist_/styles/main.css",
+    "watch:css": "lessc --watch src/styles/main.less public/_dist_/styles/main.css",
+    "start": "npm run build:css && snowpack dev",
+    "build": "npm run build:css && snowpack build"
+  },
+  "devDependencies": {
+    "less": "^4.2.0",
+    "snowpack": "^3.8.8"
+  }
+}
