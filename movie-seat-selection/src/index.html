@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>影院选座系统</title>
+  <link rel="stylesheet" href="../node_modules/bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title has-text-centered mb-6">🎬 影院选座系统</h1>
+      
+      <div class="columns">
+        <div class="column is-8">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">选择场次</p>
+            </header>
+            <div class="card-content">
+              <div class="field is-grouped is-grouped-multiline" id="showtimes-container">
+              </div>
+            </div>
+          </div>
+          
+          <div class="card mt-4">
+            <header class="card-header">
+              <p class="card-header-title">选择座位</p>
+            </header>
+            <div class="card-content">
+              <div class="screen mb-5">
+                <div class="screen-bar">银 幕</div>
+              </div>
+              <div id="seats-container" class="seats-container">
+              </div>
+              <div class="legend mt-4">
+                <div class="legend-item">
+                  <div class="seat available"></div>
+                  <span>可选</span>
+                </div>
+                <div class="legend-item">
+                  <div class="seat selected"></div>
+                  <span>已选</span>
+                </div>
+                <div class="legend-item">
+                  <div class="seat occupied"></div>
+                  <span>已售</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="column is-4">
+          <div class="card is-sticky">
+            <header class="card-header">
+              <p class="card-header-title">订单预览</p>
+            </header>
+            <div class="card-content" id="order-preview">
+              <div class="content">
+                <p class="has-text-grey has-text-centered">请选择场次和座位</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script type="module" src="main.js"></script>
+</body>
+</html>

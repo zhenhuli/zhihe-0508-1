@@ -1,0 +1,15 @@
+{
+  "name": "movie-seat-selection",
+  "version": "1.0.0",
+  "description": "影院选座模拟页面",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "dependencies": {
+    "bulma": "^0.9.4"
+  }
+}
