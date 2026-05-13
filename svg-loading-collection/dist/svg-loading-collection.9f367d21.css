@@ -1,0 +1,192 @@
+* {
+  box-sizing: border-box;
+}
+
+.K0b1SW_container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+.K0b1SW_header {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 3rem;
+}
+
+.K0b1SW_header h1 {
+  text-shadow: 2px 2px 4px #0003;
+  margin-bottom: .5rem;
+  font-size: 2.5rem;
+}
+
+.K0b1SW_header p {
+  opacity: .9;
+  font-size: 1.1rem;
+}
+
+.K0b1SW_mainContent {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+}
+
+@media (width >= 768px) {
+  .K0b1SW_mainContent {
+    grid-template-columns: 280px 1fr;
+  }
+}
+
+.K0b1SW_loaderList {
+  background: #fff;
+  border-radius: 16px;
+  max-height: 600px;
+  padding: 1.5rem;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px #00000026;
+}
+
+.K0b1SW_loaderList h2 {
+  color: #333;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  font-size: 1.2rem;
+}
+
+.K0b1SW_loaderItem {
+  cursor: pointer;
+  border-radius: 8px;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .5rem;
+  padding: .75rem 1rem;
+  transition: all .3s;
+  display: flex;
+}
+
+.K0b1SW_loaderItemPreview {
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  display: flex;
+}
+
+.K0b1SW_loaderItem:hover {
+  background: #f5f5f5;
+}
+
+.K0b1SW_loaderItem.K0b1SW_active {
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.K0b1SW_loaderItemName {
+  font-weight: 500;
+}
+
+.K0b1SW_loaderPreview {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px #00000026;
+}
+
+.K0b1SW_previewHeader {
+  border-bottom: 2px solid #e0e0e0;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  display: flex;
+}
+
+.K0b1SW_previewHeader h2 {
+  color: #333;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.K0b1SW_copyButton {
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.5rem;
+  font-size: 1rem;
+  transition: all .3s;
+  display: flex;
+}
+
+.K0b1SW_copyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px #667eea66;
+}
+
+.K0b1SW_copyButton:active {
+  transform: translateY(0);
+}
+
+.K0b1SW_copySuccess {
+  background: #4caf50 !important;
+}
+
+.K0b1SW_previewArea {
+  background: #f8f9fa;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.K0b1SW_codeSection {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.K0b1SW_codeSection h3 {
+  color: #fff;
+  background: #2d2d2d;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.K0b1SW_codeBlock {
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.K0b1SW_codeBlock pre {
+  color: #d4d4d4;
+  margin: 0;
+  font-family: Fira Code, Monaco, monospace;
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.K0b1SW_categoryTitle {
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1rem 0 .5rem;
+  padding-left: .5rem;
+  font-size: .85rem;
+}
+
+.K0b1SW_categoryTitle:first-child {
+  margin-top: 0;
+}
+/*# sourceMappingURL=svg-loading-collection.9f367d21.css.map */
