@@ -1,0 +1,14 @@
+{
+  "name": "hand-drawn-icon-maker",
+  "version": "1.0.0",
+  "description": "手绘风格简易图标生成器",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "devDependencies": {
+    "@parcel/transformer-less": "^2.16.4",
+    "less": "^4.2.0",
+    "parcel": "^2.12.0"
+  }
+}

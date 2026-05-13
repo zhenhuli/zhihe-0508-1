@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手绘图标生成器</title>
+  <link rel="stylesheet" href="./css/style.less">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🎨 手绘图标生成器</h1>
+    </header>
+
+    <div class="main-content">
+      <aside class="sidebar">
+        <div class="tool-section">
+          <h3>基础图形</h3>
+          <div class="shape-buttons">
+            <button class="shape-btn active" data-shape="none">自由绘制</button>
+            <button class="shape-btn" data-shape="circle">圆形</button>
+            <button class="shape-btn" data-shape="square">方形</button>
+            <button class="shape-btn" data-shape="line">线条</button>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3>画笔设置</h3>
+          <div class="setting-item">
+            <label>线条粗细: <span id="lineWidthValue">3</span>px</label>
+            <input type="range" id="lineWidth" min="1" max="20" value="3">
+          </div>
+          <div class="setting-item">
+            <label>线条颜色</label>
+            <input type="color" id="strokeColor" value="#2c3e50">
+          </div>
+          <div class="setting-item">
+            <label>画布底色</label>
+            <div class="color-options">
+              <button class="color-btn transparent active" data-color="transparent">透明</button>
+              <button class="color-btn white" data-color="#ffffff"></button>
+              <button class="color-btn black" data-color="#000000"></button>
+            </div>
+            <div class="custom-color">
+              <label>自定义颜色</label>
+              <input type="color" id="bgColor" value="#ffffff">
+              <button id="applyBgColor">应用</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-section">
+          <h3>操作</h3>
+          <button id="clearBtn" class="action-btn clear">清空画布</button>
+          <button id="undoBtn" class="action-btn">撤销</button>
+          <button id="exportBtn" class="action-btn export">导出图标</button>
+        </div>
+
+        <div class="tool-section">
+          <h3>画布尺寸</h3>
+          <div class="size-inputs">
+            <input type="number" id="canvasWidth" value="512" min="64" max="1024">
+            <span>×</span>
+            <input type="number" id="canvasHeight" value="512" min="64" max="1024">
+          </div>
+          <button id="resizeBtn" class="action-btn">调整尺寸</button>
+        </div>
+      </aside>
+
+      <main class="canvas-area">
+        <div class="canvas-wrapper">
+          <canvas id="drawingCanvas" width="512" height="512"></canvas>
+          <div class="preview-bg"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
