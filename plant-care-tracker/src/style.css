@@ -1,0 +1,254 @@
+@import "bulma/css/bulma.min.css";
+
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body {
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.hero.is-primary {
+  background: linear-gradient(135deg, #48c774 0%, #257953 100%);
+}
+
+.card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.notification {
+  border-radius: 8px;
+}
+
+.tag {
+  border-radius: 4px;
+}
+
+.button {
+  border-radius: 6px;
+}
+
+.input,
+.select select,
+.textarea {
+  border-radius: 6px;
+}
+
+.reminder-warning {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-body {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero .title {
+    font-size: 1.5rem;
+  }
+
+  .hero .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .section {
+    padding: 1rem 0.75rem;
+  }
+
+  .card {
+    margin-bottom: 0.75rem;
+  }
+
+  .card-content {
+    padding: 1rem;
+  }
+
+  .card-header-title {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .field:not(:last-child) {
+    margin-bottom: 0.75rem;
+  }
+
+  .label {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .input,
+  .select select,
+  .textarea {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  .button {
+    min-height: 44px;
+    font-size: 0.9rem;
+  }
+
+  .columns.is-multiline .column {
+    padding: 0.5rem;
+  }
+
+  .media-content .title {
+    font-size: 1.1rem;
+  }
+
+  .media-content .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .notification {
+    padding: 0.75rem;
+  }
+
+  .notification p {
+    font-size: 0.85rem;
+  }
+
+  .tabs ul {
+    justify-content: center;
+  }
+
+  .tabs a {
+    padding: 0.5em 0.75em;
+    font-size: 0.85rem;
+  }
+
+  .content ul {
+    margin-left: 1em;
+  }
+
+  .content li {
+    font-size: 0.85rem;
+  }
+
+  .footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+  }
+
+  .select {
+    width: 100%;
+  }
+
+  .select select {
+    width: 100%;
+  }
+
+  .image.is-128x128 {
+    width: 96px;
+    height: 96px;
+  }
+
+  .help {
+    font-size: 0.75rem;
+  }
+
+  .pagination-previous,
+  .pagination-next {
+    min-height: 40px;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-body {
+    padding: 1rem 0.75rem;
+  }
+
+  .hero .title {
+    font-size: 1.25rem;
+  }
+
+  .hero .title .icon {
+    margin-right: 0.3rem;
+  }
+
+  .section {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .card-content {
+    padding: 0.75rem;
+  }
+
+  .card-header-title {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .columns.is-multiline .column {
+    padding: 0.3rem;
+  }
+
+  .field.is-grouped {
+    flex-direction: column;
+  }
+
+  .field.is-grouped .control {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .field.is-grouped .control:last-child {
+    margin-bottom: 0;
+  }
+
+  .field.is-grouped .button {
+    width: 100%;
+  }
+
+  .notification {
+    padding: 0.6rem;
+  }
+
+  .notification p {
+    font-size: 0.8rem;
+  }
+
+  .tabs a {
+    padding: 0.4em 0.6em;
+    font-size: 0.8rem;
+  }
+
+  .media {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .media-left {
+    margin-bottom: 0.5rem;
+  }
+
+  .media-content {
+    width: 100%;
+  }
+}
