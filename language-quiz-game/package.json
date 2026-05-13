@@ -1,0 +1,30 @@
+{
+  "name": "language-quiz-game",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "多语言单词闯关游戏",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "serve": "npx serve dist"
+  },
+  "keywords": ["vue3", "quiz", "language"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^3.4.0",
+    "uikit": "^3.17.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-replace": "^5.0.0",
+    "@vue/compiler-sfc": "^3.4.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "rollup-plugin-css-only": "^4.0.0",
+    "rollup-plugin-serve": "^3.0.0",
+    "rollup-plugin-livereload": "^2.0.0"
+  }
+}
