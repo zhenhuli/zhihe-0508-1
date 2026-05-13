@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #fff;
+  background-color: #000;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: Courier New, monospace;
+  display: flex;
+}
+
+.game-container {
+  text-align: center;
+}
+
+.game-title {
+  color: #ff0;
+  text-shadow: 3px 3px red;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
+  font-size: 36px;
+}
+
+.game-info {
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+}
+
+.score {
+  color: #0f0;
+}
+
+.level {
+  color: #0ff;
+}
+
+.lives {
+  color: #f0f;
+}
+
+#gameCanvas {
+  background-color: #000;
+  border: 4px solid #00f;
+  box-shadow: 0 0 20px #0000ff80;
+}
+
+.game-controls {
+  margin-top: 20px;
+}
+
+.game-controls p {
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+button {
+  color: #000;
+  cursor: pointer;
+  text-transform: uppercase;
+  background-color: #ff0;
+  border: none;
+  margin: 0 10px;
+  padding: 10px 25px;
+  font-family: Courier New, monospace;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all .2s;
+}
+
+button:hover {
+  background-color: gold;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(.95);
+}
+
+.game-over, .level-up {
+  z-index: 100;
+  text-align: center;
+  background-color: #000000f2;
+  border: 4px solid #ff0;
+  padding: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.game-over h2, .level-up h2 {
+  color: red;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.level-up h2 {
+  color: #0f0;
+}
+
+.hidden {
+  display: none !important;
+}
+/*# sourceMappingURL=retro-pacman.c92073ef.css.map */
